@@ -28,7 +28,8 @@ class App extends React.Component {
 
   addMovieTitles(input) {
     let newMovie = {
-      title: input
+      title: input,
+      watched: false
     }
     Movies.addMovie(newMovie);
     this.setState({
@@ -36,14 +37,40 @@ class App extends React.Component {
     });
   }
 
-  getWatchedMovies(input) {
+  getWatchedMovies(event, title, state) {
     var getMovies = [];
     for (const movie of Movies.getMovies()) {
-      console.log(movie);
-      if (movie.state.watched === true) {
+      if (movie.watched === true) {
         getMovies.push(movie);
       }
     }
+    this.setState({
+      allMovies: getMovies
+    })
+  }
+
+  getToWatchMovies(event, title, state) {
+    var getMovies = [];
+    for (const movie of Movies.getMovies()) {
+      if (movie.watched === false) {
+        getMovies.push(movie);
+      }
+    }
+    this.setState({
+      allMovies: getMovies
+    })
+  }
+
+  toggleWatchedProperty(title) {
+    var allMoviesCopy = [...this.state.allMovies];
+    for (const movie of allMoviesCopy) {
+      if (movie.title === title) {
+        movie.watched = !movie.watched;
+      }
+    }
+    this.setState({
+      allMovies: allMoviesCopy
+    })
   }
 
   render() {
@@ -52,12 +79,17 @@ class App extends React.Component {
         <h1>Movie List</h1>
         <Input addClick = { this.addMovieTitles.bind(this) }/>
         <button onClick = { this.getWatchedMovies.bind(this) }>Watched</button>
-        <button>To Watch</button>
+        <button onClick = { this.getToWatchMovies.bind(this) }>To Watch</button>
         <Search submitClick = { this.getMovieTitles.bind(this) }/>
-        <MovieList movies = { this.state.allMovies }/>
+        <MovieList movies = { this.state.allMovies } toggleWatchedProperty = { this.toggleWatchedProperty.bind(this) }/>
       </div>
     )
   }
 };
+
+{/* <button style={buttonStyle} onClick ={(event) => {
+        this.onWatchClick(event);
+        this.props.onWatchedMovieClick(event,this.props.movie.title, this.state.clicked) */}
+
 
 export default App;
