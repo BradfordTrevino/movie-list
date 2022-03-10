@@ -1,41 +1,59 @@
 import React from 'react';
-import movies from '../data/exampleMovies.js'
+import Movies from '../data/Movies.js'
 import MovieList from './MovieList.jsx'
 import MovieListEntry from './MovieListEntry.jsx'
 import Search from './Search.jsx'
+import Input from './Input.jsx'
 
 class App extends React.Component {
   constructor (props) {
     super(props);
 
     this.state = {
-      allMovies: movies,
-      currentMovie: movies[0]
+      allMovies: Movies.getMovies(),
     }
-  }
-
-  onSubmitClick(event, input) {
-    console.log('Submitted!');
-    this.setState({
-      allMovies: this.getMovieTitles(input)
-    });
   }
 
   getMovieTitles(input) {
     var getMovies = [];
-    for (const movie of movies) {
-      if (movie.title.includes(input)) {
+    for (const movie of Movies.getMovies()) {
+      if (movie.title.toLowerCase().includes(input.toLowerCase())) {
         getMovies.push(movie);
       }
     }
-    return getMovies;
+    this.setState({
+      allMovies: getMovies
+    });
+  }
+
+  addMovieTitles(input) {
+    let newMovie = {
+      title: input
+    }
+    Movies.addMovie(newMovie);
+    this.setState({
+      allMovies: Movies.getMovies()
+    });
+  }
+
+  getWatchedMovies(input) {
+    var getMovies = [];
+    for (const movie of Movies.getMovies()) {
+      console.log(movie);
+      if (movie.state.watched === true) {
+        getMovies.push(movie);
+      }
+    }
   }
 
   render() {
     return (
       <div>
         <h1>Movie List</h1>
-        <Search submitClick = { this.onSubmitClick.bind(this) }/>
+        <Input addClick = { this.addMovieTitles.bind(this) }/>
+        <button onClick = { this.getWatchedMovies.bind(this) }>Watched</button>
+        <button>To Watch</button>
+        <Search submitClick = { this.getMovieTitles.bind(this) }/>
         <MovieList movies = { this.state.allMovies }/>
       </div>
     )

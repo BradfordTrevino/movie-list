@@ -1,5 +1,5 @@
 var movies = [
-  {title: 'Mean Girls'},
+  {title: 'All Dogs go to Heaven'},
   {title: 'Hackers'},
   {title: 'The Grey'},
   {title: 'Sunshine'},
