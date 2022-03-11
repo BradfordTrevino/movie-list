@@ -19,15 +19,21 @@ class MovieListEntry extends React.Component {
   render() {
     const { movie, toggleWatchedProperty } = this.props;
 
-    var style = {
-      backgroundColor : this.props.movie.watched ? 'green' : 'grey'
+    var styleButton = {
+      backgroundColor : this.props.movie.watched ? 'green' : 'lightgrey',
+      fontSize: 12,
     };
+
+    var styleDiv = {
+      borderColor : 'black',
+      borderWidth : 5
+    }
 
     return (
       <div>
-        <div>{ movie.title }
-          <button style = { style } onClick = { this.handleButtonClick.bind(this) }>
-            <span>Watched</span>
+        <div className="movie-item" style = { styleDiv }>{ movie.title }
+          <button className="watched-button" style = { styleButton } onClick = { this.handleButtonClick.bind(this) }>
+            <span className="watched-text">Watched</span>
           </button>
         </div>
       </div>

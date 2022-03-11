@@ -11,6 +11,8 @@ class App extends React.Component {
 
     this.state = {
       allMovies: Movies.getMovies(),
+      watched: false,
+      toWatch: false
     }
   }
 
@@ -22,7 +24,9 @@ class App extends React.Component {
       }
     }
     this.setState({
-      allMovies: getMovies
+      allMovies: getMovies,
+      watched: false,
+      toWatch: false
     });
   }
 
@@ -33,7 +37,9 @@ class App extends React.Component {
     }
     Movies.addMovie(newMovie);
     this.setState({
-      allMovies: Movies.getMovies()
+      allMovies: Movies.getMovies(),
+      watched: false,
+      toWatch: false
     });
   }
 
@@ -45,7 +51,9 @@ class App extends React.Component {
       }
     }
     this.setState({
-      allMovies: getMovies
+      allMovies: getMovies,
+      watched: true,
+      toWatch: false
     })
   }
 
@@ -57,7 +65,9 @@ class App extends React.Component {
       }
     }
     this.setState({
-      allMovies: getMovies
+      allMovies: getMovies,
+      watched: false,
+      toWatch: true
     })
   }
 
@@ -74,22 +84,26 @@ class App extends React.Component {
   }
 
   render() {
+    var styleWatched = {
+      backgroundColor : this.state.watched ? 'green' : 'lightgrey',
+    }
+
+    var styleToWatch = {
+      backgroundColor : this.state.toWatch ? 'green' : 'lightgrey'
+    }
+
     return (
       <div>
         <h1>Movie List</h1>
         <Input addClick = { this.addMovieTitles.bind(this) }/>
-        <button onClick = { this.getWatchedMovies.bind(this) }>Watched</button>
-        <button onClick = { this.getToWatchMovies.bind(this) }>To Watch</button>
         <Search submitClick = { this.getMovieTitles.bind(this) }/>
+        <button className='watched-movies' style = { styleWatched } onClick = { this.getWatchedMovies.bind(this) }>Watched</button>
+        <button className='towatch-movies' style = { styleToWatch }onClick = { this.getToWatchMovies.bind(this) }>To Watch</button>
         <MovieList movies = { this.state.allMovies } toggleWatchedProperty = { this.toggleWatchedProperty.bind(this) }/>
       </div>
     )
   }
 };
-
-{/* <button style={buttonStyle} onClick ={(event) => {
-        this.onWatchClick(event);
-        this.props.onWatchedMovieClick(event,this.props.movie.title, this.state.clicked) */}
 
 
 export default App;

@@ -17,19 +17,16 @@ var Movies = {
   },
 
   getMovies: () => {
-    return Movies._data.slice();
+    return [...Movies._data];
   },
 
-  toggleWatched: (title) => {
-    console.log(title);
-    for (const movie of Movies._data) {
-      if (movie.title === title) {
-        console.log(movie.watched);
-        movie.watched = !movie.watched;
-      }
-    }
-    console.log(Movies._data);
-  }
+  // toggleWatched: (title) => {
+  //   for (const movie of Movies._data) {
+  //     if (movie.title === title) {
+  //       movie.watched = !movie.watched;
+  //     }
+  //   }
+  // }
 }
 
 export default Movies;

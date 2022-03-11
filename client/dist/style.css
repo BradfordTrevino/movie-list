@@ -1,3 +1,41 @@
 body {
   font-family: sans-serif, arial;
 }
+
+.movie-item {
+  font-size: 10;
+  color: black;
+  padding: 5px;
+  border-style: solid;
+  border: 20px;
+  border-color: black;
+}
+
+.watched-button {
+  /* display: inline-flex;
+  justify-items: end; */
+  margin-left: 10px;
+  border-radius: 10px;
+  border: 0px;
+}
+
+.watched-text {
+  color: black;
+  font-size: 12;
+}
+
+.watched-movies {
+  border-radius: 2px;
+  border: 0px;
+}
+
+.towatch-movies {
+  border-radius: 2px;
+  border: 0px;
+}
+
+/* .movie-list {
+  display: grid;
+  grid-template-columns: [start] 300px [button-right] auto [end];
+  grid-template-rows: [start] 200px [end];
+} */
